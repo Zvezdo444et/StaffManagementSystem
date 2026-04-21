@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=HOME-PC\\SQLEXPRESS;Database=Inspector;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}

@@ -1,0 +1,325 @@
+<UserControl x:Class="Inspector.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="900">
+
+    <Grid Margin="{StaticResource PagePadding}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Отчёты"
+                   FontSize="28"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,16" />
+
+        <UniformGrid Grid.Row="1"
+                     Rows="2"
+                     Columns="3"
+                     Margin="0,0,0,20"
+                     HorizontalAlignment="Stretch">
+
+            <Border Margin="0,0,16,12"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Общее количество"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding TotalEmployees}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-team.png"
+                           Width="50"
+                           Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Margin="0,0,16,12"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Мужчин"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding MaleEmployees}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-male.png"
+                           Width="50"
+                           Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Margin="0,0,0,12"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Женщин"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding FemaleEmployees}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-female.png"
+                          Width="50"
+ Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Margin="0,0,16,0"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="В отпуске"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding OnVacationEmployees}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-vacation.png"
+                          Width="50"
+ Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Margin="0,0,16,0"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Достигших пенсионного возраста"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding PensionAgeEmployees}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-pension.png"
+                          Width="50"
+ Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+
+            <Border Margin="0,0,0,0"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderLightBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Средний возраст"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding AverageAge}"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                    <Image Grid.Column="1"
+                           Source="pack://application:,,,/Inspector;component/Resources/Images/icon-age.png"
+                         Width="50"
+ Height="50"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                </Grid>
+            </Border>
+        </UniformGrid>
+
+        <TextBlock Grid.Row="2"
+                   Text="Формирование отчётов"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   Margin="0,10,0,10" />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <Border Background="White"
+                            CornerRadius="16"
+                            Padding="16"
+                            Margin="0,0,0,12"
+                            BorderBrush="{StaticResource BorderLightBrush}"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Контракты"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8" />
+                            <Button Content="Сформировать отчёт"
+                                    Height="50"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource AccentGreenBrush}"
+                                    Foreground="White"
+                                    Padding="10"
+                                    BorderThickness="0"
+                                    Command="{Binding ExportContractListCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White"
+                            CornerRadius="16"
+                            Padding="16"
+                            BorderBrush="{StaticResource BorderLightBrush}"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Общий список"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8" />
+                            <Button Content="Сформировать отчёт"
+                                    Height="50"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource AccentGreenBrush}"
+                                    Foreground="White"
+                                    Padding="10"
+                                    BorderThickness="0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    Command="{Binding ExportGeneralListCommand}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <Border Background="White"
+                            CornerRadius="16"
+                            Padding="16"
+                            Margin="0,0,0,12"
+                            BorderBrush="{StaticResource BorderLightBrush}"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Активные отпуска"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8" />
+                            <Button Content="Сформировать отчёт"
+                                    Height="50"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource AccentGreenBrush}"
+                                    Foreground="White"
+                                    Padding="10"
+                                    BorderThickness="0"
+                                    Command="{Binding ExportVacationListCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White"
+                            CornerRadius="16"
+                            Padding="16"
+                            BorderBrush="{StaticResource BorderLightBrush}"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Категории"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8" />
+                            <Button Content="Сформировать отчёт"
+                                    Height="50"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource AccentGreenBrush}"
+                                    Foreground="White"
+                                    Padding="10"
+                                    BorderThickness="0"
+                                    Command="{Binding ExportCategoryListCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

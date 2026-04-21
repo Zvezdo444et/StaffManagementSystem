@@ -1,0 +1,259 @@
+﻿<UserControl x:Class="Inspector.Views.Details.PersonalDataDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:Inspector.Views.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="700"
+             d:DesignWidth="980">
+    <UserControl.Resources>
+        <converters:BoolToGenderConverter x:Key="BoolToGenderConverter" />
+        <converters:BoolToYesNoConverter x:Key="BoolToYesNoConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource AppBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="24,20,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="{Binding Employee.FullName, StringFormat='Персональные данные {0}'}"
+                       FontSize="19"
+                       FontWeight="SemiBold"
+                       Foreground="{StaticResource AccentGreenBrush}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+
+            <Button Grid.Column="1"
+                    Content="Редактировать"
+                    Height="42"
+                    Width="155"
+                    Command="{Binding EditCommand}"
+                    Background="{StaticResource AccentGreenBrush}"
+                    Foreground="White"
+                    Padding="16,8"
+                    FontSize="15"
+                    FontWeight="Medium"
+                    Margin="0,0,0,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+
+            <Button Grid.Column="2"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Height="42"
+                    Width="60"
+                    Margin="10,0,0,0"
+                    Command="{Binding CloseCommand}"
+                    ToolTip="Закрыть"
+                    Background="Transparent"
+                    Foreground="{StaticResource AccentGreenBrush}"
+                    VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Close"
+                                         Width="28"
+                                         Height="28"
+                                         Foreground="{StaticResource AccentGreenBrush}" />
+            </Button>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1"
+                      Margin="24,12,24,24"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,24,0">
+                        <TextBlock Text="Основная информация"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentGreenBrush}"
+                                   Margin="0,0,0,12" />
+                        <Grid Margin="0,0,0,32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Фамилия:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.LastName}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.FirstName}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Отчество:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.MiddleName}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Пол:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Employee.IsMale, Converter={StaticResource BoolToGenderConverter}}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата рождения:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Employee.BirthDate, StringFormat='dd.MM.yyyy'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Место рождения:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Employee.BirthPlace}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Адрес проживания:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Employee.Address}" FontWeight="Medium" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Телефон:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Employee.Phone}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Член профсоюза:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Employee.IsUnionMember, Converter={StaticResource BoolToYesNoConverter}}" FontWeight="Medium" />
+                        </Grid>
+
+                        <TextBlock Text="Паспортные данные"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentGreenBrush}"
+                                   Margin="0,0,0,12" />
+                        <Grid Margin="0,0,0,32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Серия:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.Passport.Series}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Номер:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.Passport.Number}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Идентификационный номер:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.Passport.IdentificationNumber}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Дата выдачи:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Employee.Passport.IssueDate, StringFormat='dd.MM.yyyy'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Действителен до:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Employee.Passport.ExpiryDate, StringFormat='dd.MM.yyyy'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Кем выдан:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Employee.Passport.IssuedBy}" FontWeight="Medium" />
+                        </Grid>
+
+                        <TextBlock Text="Члены семьи"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentGreenBrush}"
+                                   Margin="0,0,0,12" />
+                        <ItemsControl ItemsSource="{Binding Employee.FamilyMembers}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="0,4,0,4" FontWeight="Medium" TextWrapping="Wrap">
+                <Run Text="{Binding RelationType.Name}" />:
+                <Run Text="{Binding LastName}" />
+                <Run Text="{Binding FirstName}" />
+                <Run Text="{Binding MiddleName}" />
+                (<Run Text="{Binding BirthDate, StringFormat='dd.MM.yyyy'}" />)
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Профессиональные данные"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentGreenBrush}"
+                                   Margin="0,0,0,12" />
+                        <Grid Margin="0,0,0,32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Специальность по диплому:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.DiplomaSpecialty}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Квалификация по диплому:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.DiplomaQualification}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Основная профессия:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.MainProfession}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Стаж по специальности:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Employee.SpecialtyExperienceYears, StringFormat='{}{0} лет'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Категория:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Employee.Category}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Общий стаж работы:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Employee.TotalExperienceYears, StringFormat='{}{0} лет'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Дата трудоустройства:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Employee.HireDate, StringFormat='dd.MM.yyyy'}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Последнее место работы:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Employee.LastWorkPlace}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Должность на последнем месте:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Employee.LastWorkPosition}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="Срок действия контракта:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Employee.ContractEndDate, StringFormat='dd.MM.yyyy'}" FontWeight="Medium" />
+                        </Grid>
+
+                        <TextBlock Text="Воинский учёт"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentGreenBrush}"
+                                   Margin="0,0,0,12" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Учётная группа:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.AccountingGroup}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Состав:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.Composition}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Военно-учётная специальность:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.MilitarySpecialty}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Военкомат:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.CommissariatName}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Учётная категория:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.AccountingCategory}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Воинское звание:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.MilitaryRank}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Годность к военной службе:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.FitnessCategory}" FontWeight="Medium" />
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Номер спецучёта:" Foreground="{StaticResource TextSecondaryBrush}" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Employee.MilitaryRegistration.SpecialAccountingNumber}" FontWeight="Medium" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

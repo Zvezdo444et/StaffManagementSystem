@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="Inspector.Views.Details.QualificationDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1200">
+
+    <Grid Background="{StaticResource AppBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="24,20,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="{Binding Employee.FullName, StringFormat='Профподготовка {0}'}"
+                       FontSize="18" FontWeight="SemiBold"
+                       Foreground="{StaticResource AccentGreenBrush}"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+            <Button Grid.Column="1"
+                    Content="Редактировать"
+                    Height="42" Width="155"
+                    Command="{Binding EditCommand}"
+                    Background="{StaticResource AccentGreenBrush}"
+                    Foreground="White"
+                    Padding="16,8" FontSize="15" FontWeight="Medium"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+
+            <Button Grid.Column="2"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Height="42" Width="60" Margin="10,0,0,0"
+                    Command="{Binding CloseCommand}"
+                    ToolTip="Закрыть"
+                    Background="Transparent"
+                    Foreground="{StaticResource AccentGreenBrush}">
+                <materialDesign:PackIcon Kind="Close" Width="28" Height="28"
+                                         Foreground="{StaticResource AccentGreenBrush}" />
+            </Button>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Margin="24,12,24,24"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel Margin="0,0,24,0">
+
+                <TextBlock Text="Образование"
+           FontSize="18" FontWeight="SemiBold"
+           Foreground="{StaticResource AccentGreenBrush}"
+           Margin="0,0,0,12" />
+
+                <ItemsControl ItemsSource="{Binding Employee.EducationRecords}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#33F54242" CornerRadius="12" Margin="0,8" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding EducationLevel.Name, StringFormat='Уровень образования: {0}'}"
+                               Foreground="Black" FontWeight="Medium" />
+
+                                    <TextBlock Text="{Binding InstitutionName, StringFormat='Учебное заведение: {0}'}"
+                               Foreground="Black" FontWeight="Medium" TextWrapping="Wrap" />
+
+                                    <TextBlock Text="{Binding Specialty, StringFormat='Специальность: {0}'}"
+                               Foreground="Black" FontWeight="Medium" TextWrapping="Wrap" />
+
+                                    <TextBlock Text="{Binding Qualification, StringFormat='Квалификация: {0}'}"
+                               Foreground="Black" FontWeight="Medium" TextWrapping="Wrap" />
+
+                                    <TextBlock Text="{Binding GraduationDate, StringFormat='Дата окончания: dd.MM.yyyy'}"
+                               Foreground="Black" FontWeight="Medium" />
+
+                                    <TextBlock Text="{Binding StudyType, StringFormat='Вид обучения: {0}'}"
+                               Foreground="Black" FontWeight="Medium" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Аттестации"
+                           FontSize="18" FontWeight="SemiBold"
+                           Foreground="{StaticResource AccentGreenBrush}"
+                           Margin="0,32,0,12" />
+                <ItemsControl ItemsSource="{Binding Employee.AttestationRecords}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#334287F5" CornerRadius="12" Margin="0,6" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Date, StringFormat='Дата аттестации: dd.MM.yyyy'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding CommissionDecision, StringFormat='Решение комиссии: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Повышение квалификации"
+                           FontSize="18" FontWeight="SemiBold"
+                           Foreground="{StaticResource AccentGreenBrush}"
+                           Margin="0,32,0,12" />
+                <ItemsControl ItemsSource="{Binding Employee.QualificationUpgrades}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#3342F560" CornerRadius="12" Margin="0,6" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding StartDate, StringFormat='Дата начала: dd.MM.yyyy'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding UpgradeType, StringFormat='Вид повышения: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding DaysCountText, StringFormat='Количество дней: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding Period, StringFormat='Период: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding CertificateDate, StringFormat='Дата свидетельства: dd.MM.yyyy'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding CertificateNumber, StringFormat='Номер свидетельства: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Переподготовка"
+                           FontSize="18" FontWeight="SemiBold"
+                           Foreground="{StaticResource AccentGreenBrush}"
+                           Margin="0,32,0,12" />
+                <ItemsControl ItemsSource="{Binding Employee.RetrainingRecords}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#33F5F542" CornerRadius="12" Margin="0,6" Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding StartDate, StringFormat='Дата начала: dd.MM.yyyy'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding Specialty, StringFormat='Специальность: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding DaysCountText, StringFormat='Количество дней: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding Period, StringFormat='Период: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding DiplomaDate, StringFormat='Дата диплома: dd.MM.yyyy'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding DiplomaNumber, StringFormat='Номер диплома: {0}'}" 
+                                               Foreground="Black" FontWeight="Medium" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

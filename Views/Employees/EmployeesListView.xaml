@@ -1,0 +1,104 @@
+<UserControl x:Class="Inspector.Views.Employees.EmployeesListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Inspector.Views.Employees"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="900"
+             Loaded="OnLoaded">
+    <Grid Background="White">
+        <Grid x:Name="MainContentGrid" Margin="{StaticResource PagePadding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Effect" Value="{x:Null}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEditorOpen}" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="15" RenderingBias="Performance" />
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <TextBlock Text="Список работников" FontSize="28" FontWeight="SemiBold" Foreground="Black" />
+            <Grid Grid.Row="1" Margin="0,14,0,14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="14" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="14" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="4">
+                    <Button Style="{StaticResource LinkButtonStyle}"
+                            Command="{Binding AddEmployeeCommand}"
+                            Content="+ Добавить" />
+                </StackPanel>
+                <ComboBox Grid.Column="2"
+                          Style="{StaticResource SortComboBoxStyle}"
+                          ItemsSource="{Binding SortOptions}"
+                          SelectedItem="{Binding SelectedSortOption}" />
+                <TextBox Grid.Column="0"
+                         Style="{StaticResource SearchTextBoxStyle}"
+                         materialDesign:HintAssist.Hint="Поиск (начните вводить)"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+            <Border Grid.Row="3" Background="White" CornerRadius="16" BorderThickness="0">
+                <DataGrid Style="{StaticResource CleanDataGridStyle}"
+                          Background="White"
+                          ItemsSource="{Binding EmployeesView}"
+                          SelectedItem="{Binding SelectedEmployee}"
+                          BorderThickness="0"
+                          VirtualizingStackPanel.IsVirtualizing="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="2*" />
+                        <DataGridTextColumn Header="Текущая должность" Binding="{Binding Position}" Width="*" />
+                        <DataGridTextColumn Header="ДР / ВОЗРАСТ" Binding="{Binding BirthDateAndAge}" Width="*" />
+                        <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*" />
+                        <DataGridTemplateColumn Header="" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Просмотр"
+                                            Style="{StaticResource LinkButtonStyle}"
+                                            Command="{Binding DataContext.OpenEmployeeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="" Width="50">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignIconButton}"
+                                           Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            Foreground="{StaticResource AccentRedBrush}"
+                                            ToolTip="Удалить сотрудника">
+                                        <materialDesign:PackIcon Kind="DeleteOutline" Width="22" Height="22" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+        <Grid Background="#20000000"
+              Visibility="{Binding IsEditorOpen, Converter={StaticResource BoolToVis}}">
+            <Border Margin="40" Background="White" CornerRadius="18"
+                    Effect="{StaticResource MaterialDesignShadowDepth3}">
+                <local:EmployeeEditorView DataContext="{Binding EditorViewModel}" />
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

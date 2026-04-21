@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="Inspector.Views.Employees.Selector.EmployeeSelectorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid Background="White" Margin="24,24,24,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+           Text="Список работников"
+           FontSize="28"
+           FontWeight="SemiBold"
+           Margin="0,0,0,12"
+           Foreground="{StaticResource TextPrimaryBrush}"/>
+
+        <TextBlock Grid.Row="1"
+                   Text="{Binding Subtitle}"
+                   FontSize="16"
+                   Foreground="{StaticResource TextSecondaryBrush}"
+                   Margin="0,0,0,20"/>
+
+            <Grid Grid.Row="2" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0"
+             Style="{StaticResource SearchTextBoxStyle}"
+             materialDesign:HintAssist.Hint="Поиск (начните вводить)"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+                <ComboBox Grid.Column="2"
+              Style="{StaticResource SortComboBoxStyle}"
+              ItemsSource="{Binding SortOptions}"
+              SelectedItem="{Binding SelectedSortOption}" />
+            </Grid>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding EmployeesView}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" 
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Top"
+                                     Margin="0,0,0,20"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding DataContext.SelectEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource EmployeeCardButtonStyle}"
+                                Margin="0,0,12,12">
+                            <TextBlock Text="{Binding FullName}"
+                                       FontSize="16"
+                                       FontWeight="Medium"
+                                       Foreground="Black"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"/>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
