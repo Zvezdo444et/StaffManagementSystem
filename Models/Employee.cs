@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Inspector.Models;
+﻿namespace Inspector.Models;
 
 public sealed class Employee
 {

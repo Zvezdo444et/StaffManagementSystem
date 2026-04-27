@@ -7,7 +7,6 @@ namespace Inspector.ViewModels;
 public sealed class NotificationsViewModel : ObservableObject
 {
     private readonly IEmployeesService _employeesService;
-
     public ObservableCollection<Notification> Notifications { get; } = new();
 
     public ICommand DismissCommand { get; }
@@ -21,6 +20,7 @@ public sealed class NotificationsViewModel : ObservableObject
     }
 
     public bool HasNotifications => UnreadCount > 0;
+    public bool HasNoNotifications => UnreadCount == 0;
 
     public NotificationsViewModel(IEmployeesService employeesService)
     {
@@ -55,23 +55,22 @@ public sealed class NotificationsViewModel : ObservableObject
             }
         }
 
-        Notifications.Add(new Notification
-        {
-            Id = Guid.NewGuid(),
-            Title = "Пароль",
-            Message = "Рекомендуется сменить пароль учётной записи",
-            Type = "Password"
-        });
-
-        UnreadCount = Notifications.Count;
+        UpdateCounts();
     }
 
     private void DismissNotification(Notification notification)
     {
+        if (notification == null) return;
         Notifications.Remove(notification);
-        UnreadCount = Notifications.Count;
+        UpdateCounts();
     }
 
+    private void UpdateCounts()
+    {
+        UnreadCount = Notifications.Count;
+        OnPropertyChanged(nameof(HasNoNotifications));
+        OnPropertyChanged(nameof(HasNotifications));
+    }
     public async Task CheckAndShowStartupNotifications()
     {
         await LoadNotifications();

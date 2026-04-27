@@ -19,7 +19,12 @@ public sealed class StatisticsService : IStatisticsService
         var male = list.Count(e => e.IsMale);
         var female = total - male;
 
-        var onVacation = 0; 
+        var today = DateTime.Today;
+        var onVacation = list.Count(emp =>
+            emp.VacationRecords != null &&
+            emp.VacationRecords.Any(v =>
+                v.StartDate.HasValue && v.StartDate.Value.Date <= today &&
+                v.EndDate.HasValue && v.EndDate.Value.Date >= today));
 
         var settings = await _pensionSettings.GetSettingsAsync(ct);
         var menAge = settings?.MenAge ?? 65;

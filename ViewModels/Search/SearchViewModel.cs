@@ -283,7 +283,7 @@ public sealed class SearchViewModel : ObservableObject
             list = p.Key switch
             {
                 "Fio" => list.Where(e => e.GetFullName().Contains(val, StringComparison.OrdinalIgnoreCase)),
-                "IsMale" => list.Where(e => (e.IsMale ? "м мужской да" : "ж женский нет").Contains(val, StringComparison.OrdinalIgnoreCase)),
+                "IsMale" => list.Where(e => (e.IsMale ? "м да v" : "ж нет ;").Contains(val, StringComparison.OrdinalIgnoreCase)),
                 "BirthDate" => list.Where(e => e.BirthDate.ToString("d", dFmt).Contains(val, StringComparison.OrdinalIgnoreCase)),
                 "BirthPlace" => list.Where(e => (e.BirthPlace ?? "").Contains(val, StringComparison.OrdinalIgnoreCase)),
                 "DiplomaQualification" => list.Where(e => (e.DiplomaQualification ?? "").Contains(val, StringComparison.OrdinalIgnoreCase)),

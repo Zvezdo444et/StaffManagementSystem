@@ -292,7 +292,7 @@
                                     Foreground="White"
                                     Padding="10"
                                     BorderThickness="0"
-                                    Command="{Binding ExportVacationListCommand}"
+                                    Command="{Binding ExportVacatiExportVacationListCommandonListCommand}"
                                     Style="{StaticResource MaterialDesignRaisedButton}" />
                         </StackPanel>
                     </Border>
