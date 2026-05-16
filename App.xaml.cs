@@ -115,29 +115,6 @@ namespace Inspector
                 return;
             }
 
-            _ = System.Threading.Tasks.Task.Run(() =>
-            {
-                try
-                {
-                    using var scope = _host.Services.CreateScope();
-                    var factory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<Inspector.Data.InspectorDbContext>>();
-                    using var db = factory.CreateDbContext();
-                    db.Database.EnsureCreated();
-                }
-                catch (Exception ex)
-                {
-                    Dispatcher.BeginInvoke(() =>
-                    {
-                        MessageBox.Show(
-                            "Не удалось подключиться к базе данных.\n\n" +
-                            "Проверьте SQL Server и файл connection.json.\n\n" + ex.Message,
-                            "Ошибка подключения к БД",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
-                    });
-                }
-            });
-
             base.OnStartup(e);
         }
 

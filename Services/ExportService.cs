@@ -93,12 +93,11 @@ namespace Inspector.Services
                 workbook.SaveAs(filePath);
             });
         }
-        
-            public async Task ExportCategoryesToExcelAsync(IEnumerable<Employee> employees, string filePath)
+
+        public async Task ExportCategoryesToExcelAsync(IEnumerable<Employee> employees, string filePath)
         {
             await Task.Run(() =>
             {
-
                 using var workbook = new XLWorkbook();
                 var worksheet = workbook.Worksheets.Add("Категории работников");
 
@@ -109,9 +108,9 @@ namespace Inspector.Services
                                $"(по состоянию на {reportDate})";
 
                 worksheet.Cell(1, 1).SetValue(title);
-                worksheet.Range(1, 1, 1, 3).Merge();
+                worksheet.Range(1, 1, 1, 4).Merge();
 
-                var titleRange = worksheet.Range(1, 1, 1, 3);
+                var titleRange = worksheet.Range(1, 1, 1, 4);
                 titleRange.Style.Font.Bold = true;
                 titleRange.Style.Font.FontSize = 11;
                 titleRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -125,11 +124,14 @@ namespace Inspector.Services
                 worksheet.Cell(headerRow, 1).SetValue("№п/п");
                 worksheet.Cell(headerRow, 2).SetValue("Фамилия И.О.");
                 worksheet.Cell(headerRow, 3).SetValue("Должность");
-
-                var headerRange = worksheet.Range(headerRow, 1, headerRow, 3);
+                worksheet.Cell(headerRow, 4).SetValue("Категория"); 
+                
+                var headerRange = worksheet.Range(headerRow, 1, headerRow, 4);
                 headerRange.Style.Font.Bold = true;
                 headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
                 headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                worksheet.Range(headerRow, 3, headerRow, 4).SetAutoFilter();
 
                 int row = headerRow + 1;
                 int serialNumber = 1;
@@ -139,16 +141,16 @@ namespace Inspector.Services
                     worksheet.Cell(row, 1).SetValue(serialNumber++);
                     string fullFio = $"{emp.LastName} {emp.FirstName} {emp.MiddleName}".Trim();
                     worksheet.Cell(row, 2).SetValue(fullFio);
-                    worksheet.Cell(row, 3).SetValue(emp.CurrentProfession ?? emp.Category ?? "");
+                    worksheet.Cell(row, 3).SetValue(emp.CurrentProfession ?? ""); 
+                    worksheet.Cell(row, 4).SetValue(emp.Category ?? "");         
 
                     row++;
                 }
 
                 worksheet.Columns().AdjustToContents();
-
                 worksheet.SheetView.FreezeRows(headerRow);
 
-                var dataRange = worksheet.Range(headerRow, 1, row - 1, 3);
+                var dataRange = worksheet.Range(headerRow, 1, row - 1, 4);
                 dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                 dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
@@ -363,6 +365,9 @@ namespace Inspector.Services
                 headerRange.Style.Font.Bold = true;
                 headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
                 headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                // Один вызов на весь диапазон — фильтры на всех столбцах
+                headerRange.SetAutoFilter();
 
                 int row = headerRow + 1;
 

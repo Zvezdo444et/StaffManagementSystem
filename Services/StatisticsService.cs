@@ -26,7 +26,7 @@ public sealed class StatisticsService : IStatisticsService
                 v.StartDate.HasValue && v.StartDate.Value.Date <= today &&
                 v.EndDate.HasValue && v.EndDate.Value.Date >= today));
 
-        var settings = await _pensionSettings.GetSettingsAsync(ct);
+        var settings = await _pensionSettings.GetSettingsAsync(ct); 
         var menAge = settings?.MenAge ?? 65;
         var womenAge = settings?.WomenAge ?? 60;
 

@@ -64,6 +64,15 @@ public sealed class ReportsViewModel : ObservableObject
 
     private async Task ExportGeneralListAsync()
     {
+        var employees = await _employeesService.GetAllAsync();
+
+        if (!employees.Any())
+        {
+            MessageBox.Show("Нет данных для формирования отчёта: список работников пуст.",
+                "Нет данных", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
         var dialog = new SaveFileDialog
         {
             FileName = "Список_общий",
@@ -100,8 +109,6 @@ public sealed class ReportsViewModel : ObservableObject
                 }
             }
 
-            var employees = await _employeesService.GetAllAsync();
-
             await _exportService.ExportEmployeesToExcelAsync(employees, dialog.FileName);
 
             Properties.Settings.Default.LastExportFolder = Path.GetDirectoryName(dialog.FileName);
@@ -128,6 +135,16 @@ public sealed class ReportsViewModel : ObservableObject
     
     private async Task ExportCategoryListAsync()
     {
+        var employees = await _employeesService.GetAllAsync();
+
+        if (!employees.Any())
+        {
+            MessageBox.Show("Нет данных для формирования отчёта: список работников пуст.",
+                "Нет данных", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
+
         var dialog = new SaveFileDialog
         {
             FileName = "Категории_работников",
@@ -164,8 +181,6 @@ public sealed class ReportsViewModel : ObservableObject
                 }
             }
 
-            var employees = await _employeesService.GetAllAsync();
-
             await _exportService.ExportCategoryesToExcelAsync(employees, dialog.FileName);
 
             Properties.Settings.Default.LastExportFolder = Path.GetDirectoryName(dialog.FileName);
@@ -192,6 +207,22 @@ public sealed class ReportsViewModel : ObservableObject
 
     private async Task ExportVacationListAsync()
     {
+        var employees = await _employeesService.GetAllAsync();
+
+        var today = DateTime.Today;
+        bool hasActiveVacations = employees.Any(e =>
+            e.VacationRecords.Any(v =>
+                v.EndDate.HasValue && v.EndDate.Value.Date >= today &&
+                v.StartDate.HasValue && v.StartDate.Value.Date <= today));
+
+        if (!hasActiveVacations)
+        {
+            MessageBox.Show(
+                "Нет данных для формирования отчёта: на сегодняшний день ни один работник не находится в отпуске.",
+                "Нет данных", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
         var dialog = new SaveFileDialog
         {
             FileName = "Список_отпусков",
@@ -228,8 +259,6 @@ public sealed class ReportsViewModel : ObservableObject
                 }
             }
 
-            var employees = await _employeesService.GetAllAsync();
-
             await _exportService.ExportVacationsToExcelAsync(employees, dialog.FileName);
 
             Properties.Settings.Default.LastExportFolder = Path.GetDirectoryName(dialog.FileName);
@@ -256,6 +285,16 @@ public sealed class ReportsViewModel : ObservableObject
     }
     private async Task ExportContractListAsync()
     {
+        var employees = await _employeesService.GetAllAsync();
+
+        if (!employees.Any())
+        {
+            MessageBox.Show("Нет данных для формирования отчёта: список работников пуст.",
+                "Нет данных", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
+
         var dialog = new SaveFileDialog
         {
             FileName = "Контракты_работников",
@@ -291,8 +330,6 @@ public sealed class ReportsViewModel : ObservableObject
                     return;
                 }
             }
-
-            var employees = await _employeesService.GetAllAsync();
 
             await _exportService.ExportContractsToExcelAsync(employees, dialog.FileName);
 

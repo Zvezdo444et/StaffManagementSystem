@@ -60,7 +60,8 @@
                           ItemsSource="{Binding EmployeesView}"
                           SelectedItem="{Binding SelectedEmployee}"
                           BorderThickness="0"
-                          VirtualizingStackPanel.IsVirtualizing="True">
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          MouseDoubleClick="DataGrid_MouseLeftButtonUp">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="2*" />
                         <DataGridTextColumn Header="Текущая должность" Binding="{Binding Position}" Width="*" />
